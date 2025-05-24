@@ -6,6 +6,7 @@ import sqlite3
 import uvicorn
 from datetime import datetime
 import json
+from fastapi import Query
 
 app = FastAPI()
 
@@ -46,7 +47,10 @@ manager = ConnectionManager()
 
 # API Endpoints
 @app.post("/api/organic")
-async def add_detection(confidence: float):
+async def add_detection(confidence: float = Query(...)):
+    
+    # Debug print
+    print(f"Received confidence: {confidence} (type: {type(confidence)})")
     with sqlite3.connect('waste.db') as conn:
         conn.execute(
             "INSERT INTO detections (item_type, confidence) VALUES (?, ?)",
@@ -65,6 +69,12 @@ async def add_detection(confidence: float):
         "stats": stats
     })
     return {"status": "success"}
+
+
+
+
+
+
 
 @app.get("/api/stats")
 def get_stats(hours: int = 24):
