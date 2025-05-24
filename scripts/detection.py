@@ -10,7 +10,7 @@ from threading import Thread
 import queue
 
 # Configuration
-MODEL_PATH = "../scripts/final_model"
+MODEL_PATH = "../scripts/final_model_2/final_model"
 FASTAPI_URL = "http://localhost:8000/api/organic"
 MIN_CONFIDENCE = 0.9
 DEBOUNCE_TIME = 2.0
